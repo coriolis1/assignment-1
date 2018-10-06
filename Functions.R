@@ -121,3 +121,35 @@ print(my_mean(iris$Sepal.Length))
 print(my_mean(iris$Species))
 print(my_mean(warpbreaks$breaks))
 
+#### Exercice 4 ----
+
+## 4.a ----
+
+# Return a violin plot.
+#
+# ARGUMENTS:
+# d: a data frame or tibble
+# var: the name of a column of d containing the dependent variable, provided as a
+# string
+# grouping_var: the name of a column of d containing a grouping variable,
+# provided as a string
+#
+# RETURN VALUE:
+# A ggplot plot object containing a violin plot, grouped by the values
+# of the grouping variable.
+
+grouped_violin_plot <- function(d, var, grouping_var) {
+  # Create the base ggplot object
+  p <- ggplot2::ggplot(d, ggplot2::aes_string(y=var,
+                                              x=grouping_var,
+                                              fill=grouping_var))
+  p <- p + ggplot2::geom_violin()
+  return(p)
+}
+
+print(grouped_violin_plot(iris, "Sepal.Length", "Species"))
+
+#### Exercice 5 ----
+
+## 5.a ----
+
