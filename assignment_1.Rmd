@@ -9,22 +9,103 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Exercice 1
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+"Une expérience inoubliable"
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Exercice 2
 
-```{r cars}
-summary(cars)
+```{r}
+possible_outcomes <- c(0, 1, 2, 3, 4, 5)
+outcome_probabilities <- c(0.1, 0.5, 0.2, 0.1, 0.05, 0.05)
+n_data_points <- 400
+set.seed(1)
+fake_data_points <- sample(possible_outcomes,
+n_data_points,
+replace=T,
+prob=outcome_probabilities)
+set.seed(NULL)
+fake_data_set <- tibble::data_frame(`Fake measurement`=fake_data_points)
+
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+ggplot2::ggplot(fake_data_set, ggplot2::aes(x=`Fake measurement`)) +
+ggplot2::geom_histogram(bins=5, colour="black", fill="lightgrey")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+#### Statement 1
+
+```{r}
+possible_outcomes <- c(0, 1, 2, 3, 4, 5)
+```
+
+"Déjà vu"
+
+#### Statement 2
+
+```{r}
+outcome_probabilities <- c(0.1, 0.5, 0.2, 0.1, 0.05, 0.05)
+```
+
+"Il s'agit d'une assignation de variable qui enregistre comme un ensemble composé de différentes valeurs. Ce vecteur constitue probablement un étalonnage de probabilité s'appliquant à un autre ensemble d'observation. D'après le graphique qui lui est attaché, la deuxième occurence de "prob=" sur le lien "http://www.rexamples.com/14/Sample()" semble effectivement lié à l'idée de probabilité. D'autant plus que dans ces deux situations, la somme des valeurs est égale à 1."
+
+#### Statement 3
+
+```{r}
+n_data_points <- 400
+```
+
+"Si l'on se réfère à la section help de la commande "sample()", on remarque que cet argument est lié à la notion de taille (size) ; autrement dit au nombre d'observation séléctionnées pour l'échantillon. De plus, si l'on execute la commande "print(fake_data_points)", on obtient effectivement 400 valeurs. 
+
+NB: La section "help(sample)" confirme également notre réponse pour le Statement 2 (probabilité)"
+
+#### Statement 4
+
+```{r}
+set.seed(1)
+```
+
+"La commande help() nous renvoie à la section "génération de nombre aléatoire". La commande set.seed() permet de fixer la graine qui est interprétée comme un entier ; en l'occurence 1.
+
+D'après "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_pseudo-al%C3%A9atoires", la graine permet de pallier en partie aux difficultés théoriques d'une génération aléatoire de nombre. Ce processus est un algorythme qui reproduit le hasard tout en restant déterministe, et la graine est en quelque sorte le premier input - véritablement aléatoire - à partir duquel l'algorythme va lancer son processus de génération. La graine se réactualise d'elle-même si l'on veut continuer à produire une suite aléatoire, mais on peut la conserver identique si l'on veut reproduire le même ensemble - ce qui est intéressant pour reproduire des processus."
+
+#### Statement 5
+
+```{r}
+fake_data_points <- sample(possible_outcomes,
+n_data_points,
+replace=T,
+prob=outcome_probabilities)
+
+```
+
+"La fonction générale de cette commande est de créer un ensemble de fausses valeurs, fausses en ce sens que générées artificiellement. A "fake_data_points" est donc associé un échantillon de 400 valeurs séléctionnés dans l'ensemble "possible_outcomes". La valeur TRUE est séléctionnée pour l'argument "replace, ce qui signifie que la séléction d'une valeur dans le vecteur "possible_outcomes" n'interdit pas par la suite de séléctionner à nouveau cette valeur (ce qui est utile lorsqu'on en génère 400 à partir de 5). Enfin, le dernier argument permet de définir la probabilité d'obtenir chacune des 6 valeurs de sorte que les deux vecteurs s'appairent valeur par valeur (0 avec 0,1, 1 avec 0,5 etc.). Voir le graphique ci dessous pour constater la répartition des probabilités."
+
+```{r}
+histPercent <- function(fake_data_points, ...) {
+  H <- hist(fake_data_points, plot = FALSE)
+  H$density <- with(H, 100 * density* diff(breaks)[1])
+  labs <- paste(round(H$density), "%", sep="")
+  plot(H, freq = FALSE, labels = labs, ylim=c(0, 1.08*max(H$density)),...)
+}
+histPercent(fake_data_points)
+```
+
+#### Statement 6
+
+```{r}
+set.seed(NULL)
+```
+
+"D'après la section help(set.seed) : "If called with seed = NULL it re-initializes (see ‘Note’) as if no seed had yet been set." Cette commande réinitialise le processus de génération en supprimant la graine séléctionnée. Il sera donc désormais impossible de répliquer à l'identique l'échantillon ainsi généré."
+
+#### Statement 7
+
+```{r}
+fake_data_set <- tibble::data_frame(`Fake measurement`=fake_data_points)
+```
+
+"Il s'agit d'une assignation qui associe à "fake_data_set" l'échantillon générée par "fake_data_points" en l'orginsant sous la forme d'un data.frame. Concrètement, les 400 valeurs apparaissent dans le même ordre mais sous la forme d'une colonne indexée. 
+
+Cf. "https://tibble.tidyverse.org/" : "A tibble, or tbl_df, is a modern reimagining of the data.frame""
