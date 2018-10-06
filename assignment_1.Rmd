@@ -29,11 +29,6 @@ fake_data_set <- tibble::data_frame(`Fake measurement`=fake_data_points)
 
 ```
 
-```{r}
-ggplot2::ggplot(fake_data_set, ggplot2::aes(x=`Fake measurement`)) +
-ggplot2::geom_histogram(bins=5, colour="black", fill="lightgrey")
-```
-
 #### Statement 1
 
 ```{r}
@@ -98,7 +93,7 @@ histPercent(fake_data_points)
 set.seed(NULL)
 ```
 
-"D'après la section help(set.seed) : "If called with seed = NULL it re-initializes (see ‘Note’) as if no seed had yet been set." Cette commande réinitialise le processus de génération en supprimant la graine séléctionnée. Il sera donc désormais impossible de répliquer à l'identique l'échantillon ainsi généré."
+"D'après la section help(set.seed) : "If called with seed = NULL it re-initializes (see ‘Note’) as if no seed had yet been set." Cette commande réinitialise le processus de génération en supprimant la graine séléctionnée."
 
 #### Statement 7
 
@@ -109,3 +104,36 @@ fake_data_set <- tibble::data_frame(`Fake measurement`=fake_data_points)
 "Il s'agit d'une assignation qui associe à "fake_data_set" l'échantillon générée par "fake_data_points" en l'orginsant sous la forme d'un data.frame. Concrètement, les 400 valeurs apparaissent dans le même ordre mais sous la forme d'une colonne indexée. 
 
 Cf. "https://tibble.tidyverse.org/" : "A tibble, or tbl_df, is a modern reimagining of the data.frame""
+
+## Exercice 3
+
+faire lien vers fichier
+
+#### 3.1
+
+```{r}
+print(sum_column(iris, "Sepal.Length"))
+print(sum_column(iris, "Species"))
+print(sum_column(warpbreaks, "breaks"))
+
+```
+
+#### 3.2
+
+```{r}
+print(my_sum(iris$Sepal.Length))
+print(my_sum(iris$Species))
+print(my_sum(warpbreaks$breaks))
+```
+
+#### 3.3
+
+```{r}
+print(sum_divided_by(iris$Sepal.Length, 12))
+print(sum_divided_by(iris$Species, 22))
+print(sum_divided_by(iris$Sepal.Length, "Not numeric"))
+print(sum_divided_by(warpbreaks$breaks, -12))
+
+```
+
+#### 3.4
