@@ -140,3 +140,28 @@ print(sum_divided_by(warpbreaks$breaks, -12))
 ```
 
 #### 3.4
+
+```{r}
+print(my_mean(iris$Sepal.Length))
+print(my_mean(iris$Species))
+print(my_mean(warpbreaks$breaks))
+```
+
+## Exercice 4
+
+#### 4.1
+
+```{r}
+print(grouped_violin_plot(iris, "Sepal.Length", "Species"))
+```
+
+#### 4.2
+
+```{r}
+p <- grouped_violin_plot(iris, "Sepal.Length", "Species") + ggplot2::labs(title="Iris data") + ggplot2::scale_fill_manual(values=c("indianred3", "coral", "tan"))
+
+print(p)
+```
+
+## Exercice 5 
+
