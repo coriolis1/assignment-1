@@ -107,7 +107,10 @@ Cf. "https://tibble.tidyverse.org/" : "A tibble, or tbl_df, is a modern reimagin
 
 ## Exercice 3
 
-faire lien vers fichier
+```{r}
+source("Functions.R")
+```
+
 
 #### 3.1
 
